@@ -7,11 +7,14 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.AspectRatio
 import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.FocusMeteringAction
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCapture.OutputFileOptions
 import androidx.camera.core.ImageCaptureException
@@ -25,6 +28,7 @@ import com.example.kotlin_lesson_1.databinding.ActivityMainBinding
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
+import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
 class MainActivity : AppCompatActivity() {
@@ -84,7 +88,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setUpZoom(){
+        val listener = object :ScaleGestureDetector.SimpleOnScaleGestureListener(){
+            override fun onScale(detector: ScaleGestureDetector): Boolean {
+                val currentZoomRatio = camera.cameraInfo.zoomState.value?.zoomRatio ?: 1f
+                val delta = detector.scaleFactor
+                camera.cameraControl.setZoomRatio(currentZoomRatio * delta)
+                return true
+            }
+        }
+        val scaleGestureDetector = ScaleGestureDetector(this, listener)
 
+        binding.previewView.setOnTouchListener{view, event ->
+            scaleGestureDetector.onTouchEvent(event)
+            if(event.action == MotionEvent.ACTION_DOWN){
+                val factory = binding.previewView.meteringPointFactory
+                val point = factory.createPoint(event.x, event.y)
+                val action = FocusMeteringAction.Builder(point, FocusMeteringAction.FLAG_AF)
+                    .setAutoCancelDuration(500,TimeUnit.MILLISECONDS)
+                    .build()
+
+                camera.cameraControl.startFocusAndMetering(action)
+                view.performClick()
+            }
+            true
+        }
+    }
 
     private fun checkMultiplePermission(): Boolean {
         val listPermissionNeeded = arrayListOf<String>()
@@ -215,6 +244,7 @@ class MainActivity : AppCompatActivity() {
             camera = cameraProvider.bindToLifecycle(
                 this, cameraSelector, preview, imageCapture
             )
+            setUpZoom()
         }catch (e:Exception){
             e.printStackTrace()
         }
