@@ -3,6 +3,7 @@ package com.example.kotlin_lesson_1
 import android.content.ContentValues
 import android.content.DialogInterface
 import android.content.pm.PackageManager
+import android.graphics.RectF
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -88,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUpZoom(){
+    private fun setUpZoomTapToFocus(){
         val listener = object :ScaleGestureDetector.SimpleOnScaleGestureListener(){
             override fun onScale(detector: ScaleGestureDetector): Boolean {
                 val currentZoomRatio = camera.cameraInfo.zoomState.value?.zoomRatio ?: 1f
@@ -107,6 +108,12 @@ class MainActivity : AppCompatActivity() {
                 val action = FocusMeteringAction.Builder(point, FocusMeteringAction.FLAG_AF)
                     .setAutoCancelDuration(500,TimeUnit.MILLISECONDS)
                     .build()
+                val x = event.x
+                val y = event.y
+
+                val focusCircle = RectF(x - 50, y - 50, x+50,y+50)
+                binding.focusCircleView.focusCircle=focusCircle
+                binding.focusCircleView.invalidate()
 
                 camera.cameraControl.startFocusAndMetering(action)
                 view.performClick()
@@ -244,7 +251,7 @@ class MainActivity : AppCompatActivity() {
             camera = cameraProvider.bindToLifecycle(
                 this, cameraSelector, preview, imageCapture
             )
-            setUpZoom()
+            setUpZoomTapToFocus()
         }catch (e:Exception){
             e.printStackTrace()
         }
