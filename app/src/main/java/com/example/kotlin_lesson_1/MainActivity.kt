@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         binding.mainMenuGotoScan.setOnClickListener {
-            val intent = Intent(this, CameraActivity::class.java)
+            val intent = Intent(this, ScanMenuActivity::class.java)
             startActivity(intent)
         }
     }

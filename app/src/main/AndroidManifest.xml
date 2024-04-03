@@ -28,12 +28,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CameraActivity"
+            android:name=".ScanMenuActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light"
             android:parentActivityName=".MainActivity">
-            <intent-filter>
-            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CameraActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:parentActivityName=".ScanMenuActivity">
         </activity>
     </application>
 
