@@ -1,93 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <androidx.camera.view.PreviewView
-        android:id="@+id/previewView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <com.example.kotlin_lesson_1.FocusCircleView
-        android:id="@+id/focusCircleView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/previewView"
-        app:layout_constraintEnd_toEndOf="@+id/previewView"
-        app:layout_constraintStart_toStartOf="@+id/previewView"
-        app:layout_constraintTop_toTopOf="@+id/previewView" />
-    <ImageButton
-        android:id="@+id/captureIB"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:background="#00000000"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_camera_shutter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/white"
-        android:importantForAccessibility="no" />
-
-    <ImageButton
-        android:id="@+id/flashToggleIB"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="10dp"
-        android:background="#00000000"
-        android:scaleType="centerCrop"
-        android:src="@drawable/flash_off"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white"
-        android:importantForAccessibility="no" />
-
-    <ImageButton
-        android:id="@+id/flipCameraIB"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="10dp"
-        android:background="#00000000"
-        android:importantForAccessibility="no"
-        android:scaleType="centerCrop"
-        android:src="@drawable/flip_camera"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flashToggleIB"
-        app:tint="@color/white" />
     <TextView
-        android:id="@+id/aspectRatioTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="16:9"
-        android:textSize="18sp"
-        android:textColor="@color/white"
+        android:id="@+id/textView3"
+        android:layout_width="281dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="24dp"
+        android:text="Skin Scanner"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flipCameraIB" />
-    <ImageButton
-        android:id="@+id/changeCameraToVideoIB"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="10dp"
-        android:background="#00000000"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_photo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/main_menu_info"
+        android:layout_width="299dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/main_menu_button"
+        android:drawableTop="@drawable/info"
+        android:fontFamily="sans-serif-medium"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="Help"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:typeface="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/aspectRatioTxt"
-        app:tint="@color/white"
-        android:importantForAccessibility="no" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_menu_profile" />
+
+    <Button
+        android:id="@+id/main_menu_profile"
+        android:layout_width="299dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/main_menu_button"
+        android:drawableTop="@drawable/profile"
+        android:fontFamily="sans-serif-medium"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="Profile"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:typeface="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_menu_show_history" />
+
+    <Button
+        android:id="@+id/main_menu_show_history"
+        android:layout_width="299dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/main_menu_button"
+        android:drawableTop="@drawable/history"
+        android:fontFamily="sans-serif-medium"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="History"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:typeface="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_menu_goto_scan" />
+
+    <Button
+        android:id="@+id/main_menu_goto_scan"
+        android:layout_width="299dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/main_menu_button"
+        android:drawableTop="@drawable/microscope"
+        android:fontFamily="sans-serif-medium"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="Scan Skin"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:typeface="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
