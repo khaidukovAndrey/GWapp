@@ -53,7 +53,6 @@ android {
 }
 
 dependencies {
-
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
@@ -75,6 +74,8 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation ("androidx.activity:activity-ktx:1.8.2")
+    implementation ("androidx.fragment:fragment-ktx:1.6.2")
     // CameraX core library using the camera2 implementation
     val camerax_version = "1.3.2"
     // The following line is optional, as the core library is included indirectly by camera-camera2
@@ -86,4 +87,5 @@ dependencies {
     implementation("androidx.camera:camera-video:${camerax_version}")
     // If you want to additionally use the CameraX View class
     implementation("androidx.camera:camera-view:${camerax_version}")
+    implementation("com.vanniktech:android-image-cropper:4.5.0")
 }

@@ -15,7 +15,7 @@ import com.example.kotlin_lesson_1.databinding.ActivityScanMenuBinding
 
 class ScanMenuActivity : AppCompatActivity() {
     private lateinit var binding : ActivityScanMenuBinding
-    var pickedPhoto : Uri? = null
+    private var pickedPhoto : Uri? = null
     var pickedBitMap : Bitmap? = null
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -30,7 +30,6 @@ class ScanMenuActivity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.scanMenuLoadPhoto.setOnClickListener {
-            val intent = Intent(this, CameraActivity::class.java)
             pickPhoto()
         }
 
@@ -42,8 +41,8 @@ class ScanMenuActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this,arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
                 1)
         } else {
-            val galeriIntext = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            startActivityForResult(galeriIntext,2)
+            val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(galleryIntent,2)
         }
     }
     override fun onRequestPermissionsResult(
@@ -52,18 +51,26 @@ class ScanMenuActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         if (requestCode == 1) {
-            if (grantResults.size > 0  && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                val galeriIntext = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                startActivityForResult(galeriIntext,2)
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                val galleryIntent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                startActivityForResult(galleryIntent,2)
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 2 && resultCode == Activity.RESULT_OK && data != null) {
             pickedPhoto = data.data
             if (pickedPhoto != null) {
                 Log.d("MyLog", pickedPhoto.toString());
+                try {
+                    val intent = Intent(this, ImageCropperActivity::class.java)
+                    startActivity(intent)
+                }catch (e:Exception)
+                {
+                    e.printStackTrace()
+                }
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
