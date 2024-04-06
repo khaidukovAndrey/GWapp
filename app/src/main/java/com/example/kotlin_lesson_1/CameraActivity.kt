@@ -2,12 +2,15 @@ package com.example.kotlin_lesson_1
 
 import android.content.ContentValues
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.RectF
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.widget.Toast
@@ -32,6 +35,7 @@ import java.util.Locale
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
+
 class CameraActivity : AppCompatActivity() {
     private lateinit var binding : ActivityCameraBinding
 
@@ -55,7 +59,7 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var cameraSelector: CameraSelector
     private var lensFacing = CameraSelector.LENS_FACING_BACK
     //private var aspectRatio = AspectRatio.RATIO_16_9
-
+    lateinit var saved_uri : Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +90,14 @@ class CameraActivity : AppCompatActivity() {
         }
         binding.flashToggleIB.setOnClickListener{
             setFlashIcon(camera)
+        }
+        binding.changeCameraToVideoIB.setOnClickListener(){
+            val i: Intent = Intent(this, ImageCropperActivity::class.java)
+            if(saved_uri != null){
+                Log.d("MyLog", saved_uri.toString())
+                i.putExtra("uri", saved_uri.toString())
+            }
+            startActivity(i)
         }
     }
 
@@ -310,13 +322,13 @@ class CameraActivity : AppCompatActivity() {
                 OutputFileOptions.Builder(imageFile)
                     .setMetadata(metadata).build()
             }
-
         imageCapture.takePicture(
             outputOption,
             ContextCompat.getMainExecutor(this),
             object:ImageCapture.OnImageCapturedCallback(), ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                     val message = "Photo Capture Succeeded: ${outputFileResults.savedUri}"
+                    saved_uri = outputFileResults.savedUri!!
                     Toast.makeText(
                         this@CameraActivity,
                         message,
@@ -334,6 +346,7 @@ class CameraActivity : AppCompatActivity() {
 
             }
         )
+
     }
 
 }

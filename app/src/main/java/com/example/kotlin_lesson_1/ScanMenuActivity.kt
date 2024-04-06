@@ -65,8 +65,9 @@ class ScanMenuActivity : AppCompatActivity() {
             if (pickedPhoto != null) {
                 Log.d("MyLog", pickedPhoto.toString());
                 try {
-                    val intent = Intent(this, ImageCropperActivity::class.java)
-                    startActivity(intent)
+                    val i = Intent(this, ImageCropperActivity::class.java)
+                    i.putExtra("uri", pickedPhoto.toString())
+                    startActivity(i)
                 }catch (e:Exception)
                 {
                     e.printStackTrace()

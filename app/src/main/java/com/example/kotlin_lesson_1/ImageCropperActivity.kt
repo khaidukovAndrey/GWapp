@@ -2,13 +2,16 @@ package com.example.kotlin_lesson_1
 
 import android.Manifest
 import android.annotation.TargetApi
+import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
@@ -16,15 +19,21 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
 import com.example.kotlin_lesson_1.databinding.ActivityImageCropperBinding
+import java.io.File
+import java.io.OutputStream
+import java.util.Date
 
 
 class ImageCropperActivity : AppCompatActivity() {
     private lateinit var binding : ActivityImageCropperBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         try{
@@ -35,7 +44,8 @@ class ImageCropperActivity : AppCompatActivity() {
         }
         binding.selectImage.setOnClickListener {
             if (isPermitted()) {
-                getImageFile()
+                val uriPickedPhoto = intent.getStringExtra("uri")
+                uriPickedPhoto?.let { it1 -> launchImageCropper(it1.toUri()) }
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     requestAndroid11StoragePermission()
@@ -54,7 +64,8 @@ class ImageCropperActivity : AppCompatActivity() {
     private val requestPermission = registerForActivityResult(ActivityResultContracts.RequestPermission())
     { isGranted: Boolean ->
         if (isGranted) {
-            getImageFile()
+            val uriPickedPhoto = intent.getStringExtra("uri")
+            uriPickedPhoto?.let { it1 -> launchImageCropper(it1.toUri()) }
         } else {
             permissionDenied()
         }
@@ -63,7 +74,8 @@ class ImageCropperActivity : AppCompatActivity() {
     private var android11StoragePermission = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
     { _: ActivityResult? ->
         if (isPermitted()) {
-            getImageFile()
+            val uriPickedPhoto = intent.getStringExtra("uri")
+            uriPickedPhoto?.let { it1 -> launchImageCropper(it1.toUri()) }
         } else {
             permissionDenied()
         }
@@ -120,6 +132,7 @@ class ImageCropperActivity : AppCompatActivity() {
         if (result.isSuccessful) {
             val uriContent = result.uriContent
             val cropped = BitmapFactory.decodeFile(result.getUriFilePath(applicationContext, true))
+            saveCroppedImage(cropped)
             Log.d("MyLog", "Success")
         }
         else {
@@ -140,6 +153,51 @@ class ImageCropperActivity : AppCompatActivity() {
         {
             e.printStackTrace()
         }
+    }
 
+    private fun saveCroppedImage(bitmap: Bitmap) {
+        val myDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "CroppedImages")
+        if (!myDir.exists()) {
+            myDir.mkdirs()
+        }
+
+        // Generate a unique file name
+        val imageName = "Image_" + Date().time + ".jpg"
+        val file = File(myDir, imageName)
+        if (file.exists()) file.delete()
+        var fos: OutputStream? = null
+        try {
+            // Save the Bitmap to the file
+            val outputStream: Any? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                this.contentResolver?.also { resolver ->
+                    val contentValues = ContentValues().apply {
+                        put(MediaStore.Images.Media.DISPLAY_NAME, imageName)
+                        put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+                        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                            put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+                        }
+                    }
+                    val imageUri :Uri? = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues)
+                    fos = imageUri?.let{
+                        resolver.openOutputStream(it)
+                    }
+                }
+            } else {
+            }
+            fos?.use {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+                Toast.makeText(this, "Successfully", Toast.LENGTH_LONG).show()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            showFailureMessage()
+        }
+    }
+    private fun showSuccessMessage() {
+        Toast.makeText(applicationContext, "Image Saved", Toast.LENGTH_LONG).show()
+    }
+    private fun showFailureMessage() {
+        Toast.makeText(applicationContext, "Cropped image not saved something went wrong", Toast.LENGTH_LONG).show()
     }
 }
+
