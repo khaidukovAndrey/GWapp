@@ -32,7 +32,7 @@ import java.util.Date
 
 class ImageCropperActivity : AppCompatActivity() {
     private lateinit var binding : ActivityImageCropperBinding
-
+    lateinit var saved_uri : Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +58,18 @@ class ImageCropperActivity : AppCompatActivity() {
                     }
                 }
             }
+            binding.button.setOnClickListener {
+                if (saved_uri != null) {
+                    val i: Intent = Intent(this, ImageClassificationActivity::class.java)
+
+                    Log.d("MyLog", saved_uri.toString())
+                    i.putExtra("uri_ml", saved_uri.toString())
+
+                    startActivity(i)
+                }
+            }
+
+
         }
     }
 
@@ -133,6 +145,9 @@ class ImageCropperActivity : AppCompatActivity() {
             val uriContent = result.uriContent
             val cropped = BitmapFactory.decodeFile(result.getUriFilePath(applicationContext, true))
             saveCroppedImage(cropped)
+            if (uriContent != null) {
+                saved_uri = uriContent
+            }
             Log.d("MyLog", "Success")
         }
         else {

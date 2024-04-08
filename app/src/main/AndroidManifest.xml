@@ -55,6 +55,12 @@
             android:name="com.canhub.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"
             />
+        <activity
+            android:name=".ImageClassificationActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:parentActivityName=".ImageCropperActivity"
+            />
     </application>
 
 </manifest>
