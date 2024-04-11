@@ -29,10 +29,9 @@ import java.io.File
 import java.io.OutputStream
 import java.util.Date
 
-
 class ImageCropperActivity : AppCompatActivity() {
     private lateinit var binding : ActivityImageCropperBinding
-    lateinit var saved_uri : Uri
+    private lateinit var saved_uri : Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,14 +58,12 @@ class ImageCropperActivity : AppCompatActivity() {
                 }
             }
             binding.button.setOnClickListener {
-                if (saved_uri != null) {
-                    val i: Intent = Intent(this, ImageClassificationActivity::class.java)
+                val i = Intent(this, ImageClassificationActivity::class.java)
 
-                    Log.d("MyLog", saved_uri.toString())
-                    i.putExtra("uri_ml", saved_uri.toString())
+                Log.d("MyLog", saved_uri.toString())
+                i.putExtra("uri_ml", saved_uri.toString())
 
-                    startActivity(i)
-                }
+                startActivity(i)
             }
 
 
@@ -116,26 +113,6 @@ class ImageCropperActivity : AppCompatActivity() {
         }
     }
 
-    private fun getImageFile() {
-        val intent = Intent()
-        intent.setType("image/*")
-        intent.setAction(Intent.ACTION_GET_CONTENT)
-        getImage.launch(intent)
-    }
-
-
-    private var getImage = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-        if (result.resultCode == RESULT_OK) {
-            val data = result.data
-            if (data != null && data.data != null) {
-                val imageUri = data.data
-                if (imageUri != null) {
-                    launchImageCropper(imageUri)
-                }
-            }
-        }
-    }
-
     private fun permissionDenied() {
         Toast.makeText(applicationContext, "Permission denied", Toast.LENGTH_LONG).show()
     }
@@ -160,7 +137,11 @@ class ImageCropperActivity : AppCompatActivity() {
         val cropImageOptions = CropImageOptions()
         cropImageOptions.imageSourceIncludeGallery = true
         cropImageOptions.imageSourceIncludeCamera = false
-        cropImageOptions.guidelines = CropImageView.Guidelines.ON
+        cropImageOptions.aspectRatioX = 1
+        cropImageOptions.aspectRatioY = 1
+        cropImageOptions.outputRequestHeight=300
+        cropImageOptions.outputRequestWidth=300
+        //cropImageOptions.guidelines = CropImageView.Guidelines.ON
         val cropImageContractOptions = CropImageContractOptions(uri, cropImageOptions)
         try {
             cropImage.launch(cropImageContractOptions)
@@ -207,9 +188,6 @@ class ImageCropperActivity : AppCompatActivity() {
             e.printStackTrace()
             showFailureMessage()
         }
-    }
-    private fun showSuccessMessage() {
-        Toast.makeText(applicationContext, "Image Saved", Toast.LENGTH_LONG).show()
     }
     private fun showFailureMessage() {
         Toast.makeText(applicationContext, "Cropped image not saved something went wrong", Toast.LENGTH_LONG).show()
