@@ -26,6 +26,7 @@ class ImageClassificationActivity : AppCompatActivity(){
     private lateinit var imageView:ImageView
     private lateinit var button: Button
     private lateinit var tvOutput:TextView
+    private lateinit var uriPickedPhoto: String
 
     val lesions = mapOf(
         0 to "Actinic keratoses",
@@ -42,7 +43,9 @@ class ImageClassificationActivity : AppCompatActivity(){
         binding = ActivityImageClassificationBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        imageView = binding.imageView
+        uriPickedPhoto = intent.getStringExtra("uri_ml").toString()
+        imageView = binding.imageView3
+        imageView.setImageURI(uriPickedPhoto.toUri())
         button = binding.btnLoadImg
         tvOutput = binding.tvOutput
         button.setOnClickListener{
@@ -114,8 +117,8 @@ class ImageClassificationActivity : AppCompatActivity(){
     }*/
 
     private fun OutputGenerator2(){
-        val uriPickedPhoto = intent.getStringExtra("uri_ml")
-        val bitmap = BitmapFactory.decodeStream(uriPickedPhoto?.let {
+
+        val bitmap = BitmapFactory.decodeStream(uriPickedPhoto.let {
             contentResolver.openInputStream(it.toUri())
         })
         val resized = Bitmap.createScaledBitmap(bitmap, 224, 224, true)

@@ -32,19 +32,23 @@ import java.util.Date
 class ImageCropperActivity : AppCompatActivity() {
     private lateinit var binding : ActivityImageCropperBinding
     private lateinit var saved_uri : Uri
+    private lateinit var uriPickedPhoto : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         try{
             binding = ActivityImageCropperBinding.inflate(layoutInflater)
             setContentView(binding.root)
+            uriPickedPhoto = intent.getStringExtra("uri").toString()
+            binding.imageView2.setImageURI(uriPickedPhoto.toUri())
         }catch (e:Exception){
             e.printStackTrace()
         }
+        var cropFlag = false
         binding.selectImage.setOnClickListener {
             if (isPermitted()) {
-                val uriPickedPhoto = intent.getStringExtra("uri")
-                uriPickedPhoto?.let { it1 -> launchImageCropper(it1.toUri()) }
+                cropFlag = true
+                launchImageCropper(uriPickedPhoto.toUri())
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     requestAndroid11StoragePermission()
@@ -57,15 +61,23 @@ class ImageCropperActivity : AppCompatActivity() {
                     }
                 }
             }
-            binding.button.setOnClickListener {
-                val i = Intent(this, ImageClassificationActivity::class.java)
-
+        }
+        binding.button.setOnClickListener {
+            val i = Intent(this, ImageClassificationActivity::class.java)
+            if(cropFlag)
+            {
                 Log.d("MyLog", saved_uri.toString())
                 i.putExtra("uri_ml", saved_uri.toString())
-
-                startActivity(i)
             }
-
+            else{
+                i.putExtra("uri_ml", uriPickedPhoto)
+            }
+            try {
+                startActivity(i)
+            }catch (e:Exception)
+            {
+                e.printStackTrace()
+            }
 
         }
     }
@@ -124,7 +136,9 @@ class ImageCropperActivity : AppCompatActivity() {
             saveCroppedImage(cropped)
             if (uriContent != null) {
                 saved_uri = uriContent
+                binding.imageView2.setImageURI(saved_uri)
             }
+
             Log.d("MyLog", "Success")
         }
         else {
