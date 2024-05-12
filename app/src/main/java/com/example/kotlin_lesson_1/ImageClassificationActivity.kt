@@ -44,6 +44,8 @@ class ImageClassificationActivity : AppCompatActivity(){
         val view = binding.root
         setContentView(view)
         uriPickedPhoto = intent.getStringExtra("uri_ml").toString()
+        //val db = MainDbClass.getDb(this)
+
         imageView = binding.imageView3
         imageView.setImageURI(uriPickedPhoto.toUri())
         button = binding.btnLoadImg
@@ -51,70 +53,17 @@ class ImageClassificationActivity : AppCompatActivity(){
         button.setOnClickListener{
             OutputGenerator2()
         }
+        //val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+//        binding.btnSave.setOnClickListener{
+//            val item = Item(null, 4, uriPickedPhoto, 70.0F)
+//            Thread{
+//                db.getDao().insertItem(item)
+//            }.start()
+//
+//        }
 
 
     }
-    /*private fun OutputGenerator(){
-        val model = AutoModel3.newInstance(this)
-        val uriPickedPhoto = intent.getStringExtra("uri_ml")
-        val bitmap = BitmapFactory.decodeStream(uriPickedPhoto?.let {
-            contentResolver.openInputStream(it.toUri())
-        })
-// Creates inputs for reference.
-        val newBitmap = bitmap.copy(Bitmap.Config.ARGB_8888,true)
-
-        val tfimage = TensorImage.fromBitmap(newBitmap)
-
-// Runs model inference and gets result.
-        val outputs = model.process(tfimage)
-            .probabilityAsCategoryList.apply {
-                sortByDescending { it.score }
-            }
-        val highProbabilityOutput = outputs[0]
-
-        tvOutput.text=highProbabilityOutput.label
-        Log.i("TAG", "outputGenerator: $highProbabilityOutput")
-
-// Releases model resources if no longer used.
-        model.close()
-
-
-    }*/
-    /*private fun OutputGenerator1(){
-        val model = Model.newInstance(this)
-        val uriPickedPhoto = intent.getStringExtra("uri_ml")
-        val bitmap = BitmapFactory.decodeStream(uriPickedPhoto?.let {
-            contentResolver.openInputStream(it.toUri())
-        })
-        val resized = Bitmap.createScaledBitmap(bitmap, 300, 300, true)
-        //val byteBuffer = ByteBuffer.allocateDirect(resized.rowBytes * resized.height)
-        //bitmap.copyPixelsToBuffer(byteBuffer)
-        //byteBuffer.rewind()
-// Creates inputs for reference.
-        val newBitmap = resized.copy(Bitmap.Config.ARGB_8888,true)
-        val tfimage = TensorImage.fromBitmap(newBitmap)
-        val height = resized.height
-        val width = resized.width
-// Creates inputs for reference.
-        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 300, 300, 3), DataType.FLOAT32)
-        //val inputFeature0 = TensorBuffer.createDynamic(DataType.FLOAT32)
-        val buf = tfimage.tensorBuffer.buffer
-        try{
-            inputFeature0.loadBuffer(buf)
-        }catch (e:Exception)
-        {
-            e.printStackTrace()
-        }
-
-// Runs model inference and gets result.
-        val outputs = model.process(inputFeature0)
-
-        val outputFeature0 = outputs.outputFeature0AsTensorBuffer
-        Log.d("MyLog", "outputGenerator: $outputFeature0")
-// Releases model resources if no longer used.
-        model.close()
-
-    }*/
 
     private fun OutputGenerator2(){
 
@@ -125,7 +74,7 @@ class ImageClassificationActivity : AppCompatActivity(){
         lateinit var module:Module
 
         try {
-            module = LiteModuleLoader.load(assetFilePath(this, "modellite.ptl"))
+            module = LiteModuleLoader.load(assetFilePath(this, "modellite_effnetb01.ptl"))
         }catch (e:Exception)
         {
             e.printStackTrace()

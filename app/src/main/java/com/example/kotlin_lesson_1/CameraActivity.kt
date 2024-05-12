@@ -290,14 +290,11 @@ class CameraActivity : AppCompatActivity() {
 
     private fun takePhoto() {
         val imageFolder = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Images")
-
         if(!imageFolder.exists()){
             imageFolder.mkdir()
         }
-
         val fileName = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
             .format(System.currentTimeMillis()) + ".jpg"
-
         val contentValues = ContentValues().apply {
             put(MediaStore.Images.Media.DISPLAY_NAME,fileName)
             put(MediaStore.Images.Media.MIME_TYPE,"image/jpeg")
@@ -305,7 +302,6 @@ class CameraActivity : AppCompatActivity() {
                 put(MediaStore.Images.Media.RELATIVE_PATH,"Pictures/Images")
             }
         }
-
         //val imageFile = File(imageFolder, fileName)
         val metadata = ImageCapture.Metadata().apply {
             isReversedHorizontal = (lensFacing == CameraSelector.LENS_FACING_FRONT)

@@ -61,6 +61,12 @@
             android:theme="@style/Theme.AppCompat.Light"
             android:parentActivityName=".ImageCropperActivity"
             />
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:parentActivityName=".MainActivity"
+            />
     </application>
 
 </manifest>

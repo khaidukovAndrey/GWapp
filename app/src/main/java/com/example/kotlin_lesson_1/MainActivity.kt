@@ -23,5 +23,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ScanMenuActivity::class.java)
             startActivity(intent)
         }
+        binding.mainMenuShowHistory.setOnClickListener{
+            val intent = Intent(this, HistoryActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
