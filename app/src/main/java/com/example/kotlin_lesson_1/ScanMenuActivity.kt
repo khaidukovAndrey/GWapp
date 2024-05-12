@@ -12,6 +12,7 @@ import com.example.kotlin_lesson_1.databinding.ActivityScanMenuBinding
 class ScanMenuActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScanMenuBinding
     private var pickedPhoto: Uri? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         try {
@@ -20,10 +21,12 @@ class ScanMenuActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         binding.scanMenuTakePhoto.setOnClickListener {
             val intent = Intent(this, CameraActivity::class.java)
             startActivity(intent)
         }
+
         val changeImage = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 val data = it.data

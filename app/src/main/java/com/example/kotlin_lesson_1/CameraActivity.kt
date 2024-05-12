@@ -58,7 +58,7 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var camera: Camera
     private lateinit var cameraSelector: CameraSelector
     private var lensFacing = CameraSelector.LENS_FACING_BACK
-    //private var aspectRatio = AspectRatio.RATIO_16_9
+
     lateinit var saved_uri : Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,9 +74,7 @@ class CameraActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         startCamera()
-//        if (checkMultiplePermission()) {
-//            startCamera()
-//        }
+
         binding.flipCameraIB.setOnClickListener{
             lensFacing = if(lensFacing == CameraSelector.LENS_FACING_FRONT){
                 CameraSelector.LENS_FACING_BACK
