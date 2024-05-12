@@ -44,28 +44,26 @@ class ImageClassificationActivity : AppCompatActivity(){
         val view = binding.root
         setContentView(view)
         uriPickedPhoto = intent.getStringExtra("uri_ml").toString()
-        //val db = MainDbClass.getDb(this)
+        val db = MainDbClass.getDb(this)
+        var result =0
 
         imageView = binding.imageView3
         imageView.setImageURI(uriPickedPhoto.toUri())
         button = binding.btnLoadImg
         tvOutput = binding.tvOutput
         button.setOnClickListener{
-            OutputGenerator2()
+            result = OutputGenerator2()
         }
         //val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-//        binding.btnSave.setOnClickListener{
-//            val item = Item(null, 4, uriPickedPhoto, 70.0F)
-//            Thread{
-//                db.getDao().insertItem(item)
-//            }.start()
-//
-//        }
-
-
+        binding.btnSave.setOnClickListener{
+            val item = Item(null, result, uriPickedPhoto, 70.0F)
+            Thread{
+                db.getDao().insertItem(item)
+            }.start()
+        }
     }
 
-    private fun OutputGenerator2(){
+    private fun OutputGenerator2(): Int {
 
         val bitmap = BitmapFactory.decodeStream(uriPickedPhoto.let {
             contentResolver.openInputStream(it.toUri())
@@ -92,7 +90,7 @@ class ImageClassificationActivity : AppCompatActivity(){
         }
         Log.d("MyLog", "$maxScoreIdx")
         binding.tvOutput.text = lesions[maxScoreIdx]
-
+        return maxScoreIdx
     }
 
     fun assetFilePath(context: Context, asset: String): String {

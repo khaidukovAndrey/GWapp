@@ -13,20 +13,6 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.56" />
 
-    <Button
-        android:id="@+id/btn_save"
-        android:layout_width="140dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/main_menu_button"
-        android:text="Save"
-        android:textSize="21sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview1" />
-
     <ImageView
         android:layout_width="300dp"
         android:layout_height="300dp"
@@ -41,7 +27,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textview1"
+        android:id="@+id/textview2"
         android:text="Output: "
         android:textSize="21sp"
         android:layout_marginTop="24dp"
@@ -52,11 +38,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_output"
+        android:id="@+id/tv_output_res"
         android:text="result here"
         android:textSize="21sp"
         android:textColor="@color/purple_500"
-        app:layout_constraintStart_toEndOf="@id/textview1"
+        app:layout_constraintStart_toEndOf="@id/textview2"
         app:layout_constraintTop_toBottomOf="@id/imageView4"
         android:layout_marginTop="24dp"/>
 
