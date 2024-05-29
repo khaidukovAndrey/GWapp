@@ -36,15 +36,10 @@ class ImageCropperActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        try{
-            binding = ActivityImageCropperBinding.inflate(layoutInflater)
-            setContentView(binding.root)
-            uriPickedPhoto = intent.getStringExtra("uri").toString()
-            binding.imageView2.setImageURI(uriPickedPhoto.toUri())
-        }catch (e:Exception){
-            e.printStackTrace()
-        }
+
         var cropFlag = false
+        binding = ActivityImageCropperBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         binding.selectImage.setOnClickListener {
             if (isPermitted()) {
                 cropFlag = true
@@ -80,6 +75,17 @@ class ImageCropperActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        try{
+            uriPickedPhoto = intent.getStringExtra("uri").toString()
+            binding.imageView2.setImageURI(uriPickedPhoto.toUri())
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+
     }
 
     private val requestPermission = registerForActivityResult(ActivityResultContracts.RequestPermission())

@@ -18,76 +18,63 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/main_menu_info"
-        android:layout_width="299dp"
-        android:layout_height="121dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/main_menu_button"
-        android:drawableTop="@drawable/info"
-        android:fontFamily="sans-serif-medium"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:text="Help"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:typeface="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_menu_profile" />
 
-    <Button
-        android:id="@+id/main_menu_profile"
-        android:layout_width="299dp"
-        android:layout_height="121dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/main_menu_button"
-        android:drawableTop="@drawable/profile"
-        android:fontFamily="sans-serif-medium"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:text="Profile"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:typeface="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_menu_show_history" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="624dp"
+        android:paddingBottom="16dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
 
-    <Button
-        android:id="@+id/main_menu_show_history"
-        android:layout_width="299dp"
-        android:layout_height="121dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/main_menu_button"
-        android:drawableTop="@drawable/history"
-        android:fontFamily="sans-serif-medium"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:text="History"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:typeface="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_menu_goto_scan" />
+        <Button
+            android:id="@+id/main_menu_goto_scan"
+            android:layout_width="299dp"
+            android:layout_height="121dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/main_menu_button"
+            android:drawableTop="@drawable/microscope"
+            android:fontFamily="sans-serif-medium"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Начать Сканирование"
+            android:textAllCaps="false"
+            android:textSize="24sp"
+            android:typeface="normal"
+            android:layout_weight="1"/>
 
-    <Button
-        android:id="@+id/main_menu_goto_scan"
-        android:layout_width="299dp"
-        android:layout_height="121dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/main_menu_button"
-        android:drawableTop="@drawable/microscope"
-        android:fontFamily="sans-serif-medium"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:text="Scan Skin"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:typeface="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        <Button
+            android:id="@+id/main_menu_show_history"
+            android:layout_width="299dp"
+            android:layout_height="121dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/main_menu_button"
+            android:drawableTop="@drawable/history"
+            android:fontFamily="sans-serif-medium"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="История"
+            android:textAllCaps="false"
+            android:textSize="24sp"
+            android:typeface="normal"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/main_menu_info"
+            android:layout_width="299dp"
+            android:layout_height="121dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/main_menu_button"
+            android:drawableTop="@drawable/info"
+            android:fontFamily="sans-serif-medium"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Помошь"
+            android:textAllCaps="false"
+            android:textSize="24sp"
+            android:typeface="normal"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

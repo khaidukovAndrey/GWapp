@@ -29,6 +29,8 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.kotlin_lesson_1.databinding.ActivityCameraBinding
+import com.example.kotlin_lesson_1.domain.usecase.appSettingOpen
+import com.example.kotlin_lesson_1.domain.usecase.warningPermissionDialog
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale

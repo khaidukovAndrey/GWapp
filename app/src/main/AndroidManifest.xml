@@ -37,7 +37,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="Skin Scanner"
-            android:theme="@style/Theme.AppCompat.Light">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,19 +47,19 @@
         <activity
             android:name=".ScanMenuActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:parentActivityName=".MainActivity">
         </activity>
         <activity
             android:name=".CameraActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:parentActivityName=".ScanMenuActivity">
         </activity>
         <activity
             android:name=".ImageCropperActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:parentActivityName=".ScanMenuActivity">
         </activity>
         <activity
@@ -69,13 +69,25 @@
         <activity
             android:name=".ImageClassificationActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:parentActivityName=".ImageCropperActivity"
             />
         <activity
             android:name=".HistoryActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:parentActivityName=".MainActivity"
+            />
+        <activity
+            android:name=".ResultScreenActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:parentActivityName=".HistoryActivity"
+            />
+        <activity
+            android:name=".InfoActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:parentActivityName=".MainActivity"
             />
     </application>

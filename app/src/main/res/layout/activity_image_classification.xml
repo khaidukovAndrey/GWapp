@@ -15,62 +15,97 @@
 
     <Button
         android:id="@+id/btn_load_img"
-        android:layout_width="140dp"
-        android:layout_height="67dp"
+        android:layout_width="165dp"
+        android:layout_height="65dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/main_menu_button"
-        android:text="Scan"
+        android:text="Сканировать"
         android:textSize="21sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+
     <Button
         android:id="@+id/btn_save"
-        android:layout_width="140dp"
-        android:layout_height="67dp"
+        android:layout_width="349dp"
+        android:layout_height="63dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/main_menu_button"
-        android:text="Save"
+        android:text="Сохранить и вернуться в главное меню"
         android:textSize="21sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview1" />
+        app:layout_constraintTop_toBottomOf="@+id/textview1"
+        app:layout_constraintVertical_bias="0.886" />
 
     <ImageView
-        android:layout_width="300dp"
-        android:layout_height="450dp"
         android:id="@+id/imageView3"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         android:src="@drawable/ic_placeholder"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textview1"
-        android:text="Output: "
+        android:text="Результат: "
         android:textSize="21sp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_load_img"
         android:layout_marginStart="16dp"
         android:textColor="@color/black"/>
+
     <TextView
+        android:id="@+id/tv_output"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:text="будет здесь"
+        android:textColor="@color/purple_500"
+        android:textSize="21sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/textview1"
+        app:layout_constraintTop_toBottomOf="@id/btn_load_img" />
+
+    <TextView
+        android:id="@+id/descriptionScanView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_output"
-        android:text="result here"
-        android:textSize="21sp"
-        android:textColor="@color/purple_500"
-        app:layout_constraintStart_toEndOf="@id/textview1"
-        app:layout_constraintTop_toBottomOf="@id/btn_load_img"
-        android:layout_marginTop="24dp"/>
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text=""
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/btn_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_output"
+        app:layout_constraintVertical_bias="0.058" />
+
+    <TextView
+        android:id="@+id/recomendationScanView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/btn_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionScanView"
+        app:layout_constraintVertical_bias="0.058"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/black"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
